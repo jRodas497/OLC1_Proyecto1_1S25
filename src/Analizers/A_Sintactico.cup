@@ -1,0 +1,35 @@
+// Importar las clases necesarias
+import java_cup.runtime.*;
+
+parser code {:
+  public static void main(String[] args) throws Exception {
+    parser p = new parser(new Scanner(System.in));
+    p.parse();
+  }
+:}
+
+// Definir las terminales
+terminal PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN;
+terminal Integer NUMBER;
+
+// Definir las no terminales
+non terminal expr, term, factor;
+
+// Precedencia de operadores
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+
+// Reglas de producción
+expr ::= expr PLUS term
+       | expr MINUS term
+       | term
+       ;
+
+term ::= term TIMES factor
+       | term DIVIDE factor
+       | factor
+       ;
+
+factor ::= NUMBER
+         | LPAREN expr RPAREN
+         ;

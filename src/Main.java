@@ -1,9 +1,7 @@
-class HolaMundo {
+//import java_cup.runtime.*;
+
+public class Main {
     public static void main(String[] args) {
-        int num1 = 5;
-        int num2 = 10;
-        int sum = num1 + num2;
-        System.out.println("");
-        System.out.println("La suma es: " + sum);
+        System.out.println("Cup library is working!");
     }
 }
