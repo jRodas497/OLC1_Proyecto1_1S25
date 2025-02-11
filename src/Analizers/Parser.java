@@ -11,7 +11,7 @@ import java_cup.runtime.XMLElement;
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
 @SuppressWarnings({"rawtypes"})
-public class A_Sintactico extends java_cup.runtime.lr_parser {
+public class Parser extends java_cup.runtime.lr_parser {
 
  public final Class getSymbolContainer() {
     return Simbolos.class;
@@ -19,14 +19,14 @@ public class A_Sintactico extends java_cup.runtime.lr_parser {
 
   /** Default constructor. */
   @Deprecated
-  public A_Sintactico() {super();}
+  public Parser() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
-  public A_Sintactico(java_cup.runtime.Scanner s) {super(s);}
+  public Parser(java_cup.runtime.Scanner s) {super(s);}
 
   /** Constructor which sets the default scanner. */
-  public A_Sintactico(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+  public Parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
 
   /** Production table. */
   protected static final short _production_table[][] = 
@@ -55,12 +55,12 @@ public class A_Sintactico extends java_cup.runtime.lr_parser {
   public short[][] reduce_table() {return _reduce_table;}
 
   /** Instance of action encapsulation class. */
-  protected CUP$A_Sintactico$actions action_obj;
+  protected CUP$Parser$actions action_obj;
 
   /** Action encapsulation object initializer. */
   protected void init_actions()
     {
-      action_obj = new CUP$A_Sintactico$actions(this);
+      action_obj = new CUP$Parser$actions(this);
     }
 
   /** Invoke a user supplied parse action. */
@@ -72,7 +72,7 @@ public class A_Sintactico extends java_cup.runtime.lr_parser {
     throws java.lang.Exception
   {
     /* call code in generated class */
-    return action_obj.CUP$A_Sintactico$do_action(act_num, parser, stack, top);
+    return action_obj.CUP$Parser$do_action(act_num, parser, stack, top);
   }
 
   /** Indicates start state. */
@@ -93,63 +93,63 @@ public class A_Sintactico extends java_cup.runtime.lr_parser {
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
-class CUP$A_Sintactico$actions {
-  private final A_Sintactico parser;
+class CUP$Parser$actions {
+  private final Parser parser;
 
   /** Constructor */
-  CUP$A_Sintactico$actions(A_Sintactico parser) {
+  CUP$Parser$actions(Parser parser) {
     this.parser = parser;
   }
 
   /** Method 0 with the actual generated action code for actions 0 to 300. */
-  public final java_cup.runtime.Symbol CUP$A_Sintactico$do_action_part00000000(
-    int                        CUP$A_Sintactico$act_num,
-    java_cup.runtime.lr_parser CUP$A_Sintactico$parser,
-    java.util.Stack            CUP$A_Sintactico$stack,
-    int                        CUP$A_Sintactico$top)
+  public final java_cup.runtime.Symbol CUP$Parser$do_action_part00000000(
+    int                        CUP$Parser$act_num,
+    java_cup.runtime.lr_parser CUP$Parser$parser,
+    java.util.Stack            CUP$Parser$stack,
+    int                        CUP$Parser$top)
     throws java.lang.Exception
     {
       /* Symbol object for return from actions */
-      java_cup.runtime.Symbol CUP$A_Sintactico$result;
+      java_cup.runtime.Symbol CUP$Parser$result;
 
       /* select the action based on the action number */
-      switch (CUP$A_Sintactico$act_num)
+      switch (CUP$Parser$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // $START ::= INICIO EOF 
             {
               Object RESULT =null;
-		int start_valleft = ((java_cup.runtime.Symbol)CUP$A_Sintactico$stack.elementAt(CUP$A_Sintactico$top-1)).left;
-		int start_valright = ((java_cup.runtime.Symbol)CUP$A_Sintactico$stack.elementAt(CUP$A_Sintactico$top-1)).right;
-		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$A_Sintactico$stack.elementAt(CUP$A_Sintactico$top-1)).value;
+		int start_valleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int start_valright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		RESULT = start_val;
-              CUP$A_Sintactico$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$A_Sintactico$stack.elementAt(CUP$A_Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$A_Sintactico$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           /* ACCEPT */
-          CUP$A_Sintactico$parser.done_parsing();
-          return CUP$A_Sintactico$result;
+          CUP$Parser$parser.done_parsing();
+          return CUP$Parser$result;
 
           /* . . . . . .*/
           default:
             throw new Exception(
-               "Invalid action number "+CUP$A_Sintactico$act_num+"found in internal parse table");
+               "Invalid action number "+CUP$Parser$act_num+"found in internal parse table");
 
         }
     } /* end of method */
 
   /** Method splitting the generated action code into several parts. */
-  public final java_cup.runtime.Symbol CUP$A_Sintactico$do_action(
-    int                        CUP$A_Sintactico$act_num,
-    java_cup.runtime.lr_parser CUP$A_Sintactico$parser,
-    java.util.Stack            CUP$A_Sintactico$stack,
-    int                        CUP$A_Sintactico$top)
+  public final java_cup.runtime.Symbol CUP$Parser$do_action(
+    int                        CUP$Parser$act_num,
+    java_cup.runtime.lr_parser CUP$Parser$parser,
+    java.util.Stack            CUP$Parser$stack,
+    int                        CUP$Parser$top)
     throws java.lang.Exception
     {
-              return CUP$A_Sintactico$do_action_part00000000(
-                               CUP$A_Sintactico$act_num,
-                               CUP$A_Sintactico$parser,
-                               CUP$A_Sintactico$stack,
-                               CUP$A_Sintactico$top);
+              return CUP$Parser$do_action_part00000000(
+                               CUP$Parser$act_num,
+                               CUP$Parser$parser,
+                               CUP$Parser$stack,
+                               CUP$Parser$top);
     }
 }
 
