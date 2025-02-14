@@ -8,10 +8,10 @@ public class GeneratorsP {
                     "-destdir",
                     "src/Analizers",
                     "-symbols",
-                    "Simbolos",
+                    "Terminal",
                     "-parser",
                     "Parser",
-                    "src/Analizers/A_Sintactico.cup"
+                    "src/Analizers/Parser.cup"
                 });
         } catch (Exception e) {
             System.out.println(e);

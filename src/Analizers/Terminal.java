@@ -6,17 +6,17 @@
 package Analizers;
 
 /** CUP generated class containing symbol constants. */
-public class Simbolos {
+public class Terminal {
   /* terminals */
-  public static final int Numero = 3;
-  public static final int Linea = 2;
   public static final int error = 1;
+  public static final int TK_numero = 3;
+  public static final int TK_suma = 2;
   public static final int EOF = 0;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "Linea",
-  "Numero"
+  "TK_suma",
+  "TK_numero"
   };
 }
 
