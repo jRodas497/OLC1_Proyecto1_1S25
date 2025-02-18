@@ -28,12 +28,64 @@ import java_cup.runtime.Symbol;
 
 // === EXPRESIONES REGULARES
 UNUSED = [ \r\t]+ // Caracteres que se omiten
-NUMEROS = [0-9]+(\.[0-9]+)?
+INTEGER = [0-9]+
+DOUBLE = [0-9]+\.[0-9]+
+ID = (\_)*[a-zA-Z][a-zA-Z0-9\_]*
+COMMENTS = "//"([^\r\n]*)?
+COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 %%
 
 // === 3. REGLAS SEMÁNTICAS
-// {ER} { return new Symbol(parametros); }
-{UNUSED}                    {}
-"+"                         {return new Symbol(Terminal.TK_suma,        yyline, yychar, yytext());}
-{NUMEROS}                   {return new Symbol(Terminal.TK_numero,      yyline, yychar, yytext());}
-\n                          {yychar = 1;}
+
+"strategy"                      {return new Symbol(Terminal.PR_strategy,          yyline, yychar, yytext());}
+"initial"                       {return new Symbol(Terminal.PR_initial,          yyline, yychar, yytext());}
+"C"                             {return new Symbol(Terminal.PR_C,          yyline, yychar, yytext());}
+"D"                             {return new Symbol(Terminal.PR_D,          yyline, yychar, yytext());}
+"rules"                         {return new Symbol(Terminal.PR_rules,          yyline, yychar, yytext());}
+"if"                            {return new Symbol(Terminal.PR_if,          yyline, yychar, yytext());}
+"then"                          {return new Symbol(Terminal.PR_then,          yyline, yychar, yytext());}
+"else"                          {return new Symbol(Terminal.PR_else,          yyline, yychar, yytext());}
+"get_move"                      {return new Symbol(Terminal.PR_get_move,          yyline, yychar, yytext());}
+"last_move"                     {return new Symbol(Terminal.PR_last_move,          yyline, yychar, yytext());}
+"get_moves_count"               {return new Symbol(Terminal.PR_get_moves_count,          yyline, yychar, yytext());}
+"get_last_n_moves"              {return new Symbol(Terminal.PR_get_last_n_moves,          yyline, yychar, yytext());}
+"round_number"                  {return new Symbol(Terminal.PR_round_number,          yyline, yychar, yytext());}
+"match"                         {return new Symbol(Terminal.PR_match,          yyline, yychar, yytext());}
+"players"                       {return new Symbol(Terminal.PR_players,          yyline, yychar, yytext());}
+"strategies"                    {return new Symbol(Terminal.PR_strategies,          yyline, yychar, yytext());}
+"rounds"                        {return new Symbol(Terminal.PR_rounds,          yyline, yychar, yytext());}
+"scoring"                       {return new Symbol(Terminal.PR_scoring,          yyline, yychar, yytext());}
+"mutual cooperation"            {return new Symbol(Terminal.PR_cooperacionM,          yyline, yychar, yytext());}
+"mutual defection"              {return new Symbol(Terminal.PR_defeccionnM,          yyline, yychar, yytext());}
+"betrayal reward"               {return new Symbol(Terminal.PR_traidor,          yyline, yychar, yytext());}
+"betrayal punishment"           {return new Symbol(Terminal.PR_traicionado,          yyline, yychar, yytext());}
+"main"                          {return new Symbol(Terminal.PR_main,          yyline, yychar, yytext());}
+"run"                           {return new Symbol(Terminal.PR_run,          yyline, yychar, yytext());}
+"with"                          {return new Symbol(Terminal.PR_with,          yyline, yychar, yytext());}
+"seed"                          {return new Symbol(Terminal.PR_seed,          yyline, yychar, yytext());}
+// === IDENTIFICADORES Y VALORES ===
+{ID}                            {return new Symbol(Terminal.TK_id,          yyline, yychar, yytext());}
+{INTEGER}                       {return new Symbol(Terminal.TK_enteros,          yyline, yychar, yytext());}
+{DOUBLE}                        {return new Symbol(Terminal.TK_decimales,          yyline, yychar, yytext());}
+// === OPERADORES ===
+"=="                      {return new Symbol(Terminal.TK_igual,          yyline, yychar, yytext());}
+"!="                      {return new Symbol(Terminal.TK_diferente,          yyline, yychar, yytext());}
+">"                      {return new Symbol(Terminal.TK_mayor,          yyline, yychar, yytext());}
+"<"                      {return new Symbol(Terminal.TK_menor,          yyline, yychar, yytext());}
+"<="                      {return new Symbol(Terminal.TK_menorIgual,          yyline, yychar, yytext());}
+">="                      {return new Symbol(Terminal.TK_mayorIgual,          yyline, yychar, yytext());}
+"||"                      {return new Symbol(Terminal.TK_or,          yyline, yychar, yytext());}
+"&&"                      {return new Symbol(Terminal.TK_and,          yyline, yychar, yytext());}
+"!"                      {return new Symbol(Terminal.TK_not,          yyline, yychar, yytext());}
+// === AGRUPACION ===
+"{"                      {return new Symbol(Terminal.TK_llaveA,          yyline, yychar, yytext());}
+"}"                      {return new Symbol(Terminal.TK_llaveC,          yyline, yychar, yytext());}
+"["                      {return new Symbol(Terminal.TK_corcheteA,          yyline, yychar, yytext());}
+"]"                      {return new Symbol(Terminal.TK_corcheteC,          yyline, yychar, yytext());}
+"("                      {return new Symbol(Terminal.TK_parA,          yyline, yychar, yytext());}
+")"                      {return new Symbol(Terminal.TK_parC,          yyline, yychar, yytext());}
+":"                      {return new Symbol(Terminal.TK_dosPuntos,          yyline, yychar, yytext());}
+","                      {return new Symbol(Terminal.TK_coma,          yyline, yychar, yytext());}
+\n                       {yychar = 1;}
+{COMMENTS}               {}
+{COMMENTM}               {}

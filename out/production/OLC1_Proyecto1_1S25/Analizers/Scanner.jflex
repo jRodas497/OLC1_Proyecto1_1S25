@@ -68,24 +68,24 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 {INTEGER}                       {return new Symbol(Terminal.TK_enteros,          yyline, yychar, yytext());}
 {DOUBLE}                        {return new Symbol(Terminal.TK_decimales,          yyline, yychar, yytext());}
 // === OPERADORES ===
-"=="                      {return new Symbol(Terminal.TK_igual,          yyline, yychar, yytext());}
-"!="                      {return new Symbol(Terminal.TK_diferente,          yyline, yychar, yytext());}
-">"                      {return new Symbol(Terminal.TK_mayor,          yyline, yychar, yytext());}
-"<"                      {return new Symbol(Terminal.TK_menor,          yyline, yychar, yytext());}
-"<="                      {return new Symbol(Terminal.TK_menorIgual,          yyline, yychar, yytext());}
-">="                      {return new Symbol(Terminal.TK_mayorIgual,          yyline, yychar, yytext());}
-"||"                      {return new Symbol(Terminal.TK_or,          yyline, yychar, yytext());}
-"&&"                      {return new Symbol(Terminal.TK_and,          yyline, yychar, yytext());}
-"!"                      {return new Symbol(Terminal.TK_not,          yyline, yychar, yytext());}
+"=="                            {return new Symbol(Terminal.TK_igual,          yyline, yychar, yytext());}
+"!="                            {return new Symbol(Terminal.TK_diferente,          yyline, yychar, yytext());}
+">"                             {return new Symbol(Terminal.TK_mayor,          yyline, yychar, yytext());}
+"<"                             {return new Symbol(Terminal.TK_menor,          yyline, yychar, yytext());}
+"<="                            {return new Symbol(Terminal.TK_menorIgual,          yyline, yychar, yytext());}
+">="                            {return new Symbol(Terminal.TK_mayorIgual,          yyline, yychar, yytext());}
+"||"                            {return new Symbol(Terminal.TK_or,          yyline, yychar, yytext());}
+"&&"                            {return new Symbol(Terminal.TK_and,          yyline, yychar, yytext());}
+"!"                             {return new Symbol(Terminal.TK_not,          yyline, yychar, yytext());}
 // === AGRUPACION ===
-"{"                      {return new Symbol(Terminal.TK_llaveA,          yyline, yychar, yytext());}
-"}"                      {return new Symbol(Terminal.TK_llaveC,          yyline, yychar, yytext());}
-"["                      {return new Symbol(Terminal.TK_corcheteA,          yyline, yychar, yytext());}
-"]"                      {return new Symbol(Terminal.TK_corcheteC,          yyline, yychar, yytext());}
-"("                      {return new Symbol(Terminal.TK_parA,          yyline, yychar, yytext());}
-")"                      {return new Symbol(Terminal.TK_parC,          yyline, yychar, yytext());}
-":"                      {return new Symbol(Terminal.TK_dosPuntos,          yyline, yychar, yytext());}
-","                      {return new Symbol(Terminal.TK_coma,          yyline, yychar, yytext());}
-\n                       {yychar = 1;}
-{COMMENTS}               {}
-{COMMENTM}               {}
+"{"                             {return new Symbol(Terminal.TK_llaveA,          yyline, yychar, yytext());}
+"}"                             {return new Symbol(Terminal.TK_llaveC,          yyline, yychar, yytext());}
+"["                             {return new Symbol(Terminal.TK_corcheteA,          yyline, yychar, yytext());}
+"]"                             {return new Symbol(Terminal.TK_corcheteC,          yyline, yychar, yytext());}
+"("                             {return new Symbol(Terminal.TK_parA,          yyline, yychar, yytext());}
+")"                             {return new Symbol(Terminal.TK_parC,          yyline, yychar, yytext());}
+":"                             {return new Symbol(Terminal.TK_dosPuntos,          yyline, yychar, yytext());}
+","                             {return new Symbol(Terminal.TK_coma,          yyline, yychar, yytext());}
+\n                              {yychar = 1;}
+{COMMENTS}                      {}
+{COMMENTM}                      {}

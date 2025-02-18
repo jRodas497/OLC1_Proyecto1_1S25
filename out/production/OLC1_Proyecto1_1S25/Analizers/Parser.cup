@@ -19,11 +19,145 @@ terminal String PR_strategy, PR_initial, PR_C, PR_D, PR_rules, PR_if, PR_then, P
 non terminal INICIO;
 non terminal OPERACIONES;
 non terminal OPERACION;
+non terminal INTRUCCIONES;
+non terminal INTRUCCION;
+non terminal ESTRATEGIA;
+non terminal INSTRUCCIONES_ESTRATEGIA;
+non terminal DECISION_INICIAL;
+non terminal REGLAS;
+non terminal LISTA_REGLAS;
+non terminal REGLA;
+non terminal CONDICION;
+non terminal THEN_DECISION;
+non terminal ELSE_DECISION;
+non terminal PARTIDA;
+non terminal INSTRUCCIONES_PARTIDA;
+non terminal JUGADORES;
+non terminal LISTA_ESTRATEGIAS;
+non terminal RONDAS;
+non terminal PUNTAJE;
+non terminal RESULTADO;
+non terminal COOPERACION_MUTUA;
+non terminal DEFECCION_MUTUA;
+non terminal RECOMPENSA_TRAICION;
+non terminal CASTIGO_TRAICION;
+non terminal PUNTO_ACCESO;
+non terminal INSTRUCCIONES_ACCESO;
+non terminal EXPRESION;
+non terminal NUMEROS;
+non terminal LOGICAS;
+non terminal RELACIONALES;
+non terminal DECISION;
 
 // === 5. presedencia de operadores
+precedence left TK_igual;
+precedence left TK_mayor;
+precedence left TK_menor;
+precedence left TK_mayorIgual;
+precedence left TK_menorIgual;
+precedence left TK_and;
+precedence left TK_or;
+precedence right TK_not;
 
 // === 6. Gramatica
 start with INICIO;
 
-INICIO ::= PR_strategy;
+/*
+INICIO
+*/
 
+INICIO ::= INTRUCCIONES;
+
+INTRUCCIONES ::= INTRUCCIONES INTRUCCION |
+                INTRUCCION;
+
+INTRUCCION ::= ESTRATEGIA   |
+               PARTIDA      |
+               PUNTO_ACCESO ;
+
+/*
+ESTRATEGIA
+*/
+
+ESTRATEGIA ::= PR_strategy TK_id TK_llaveA INSTRUCCIONES_ESTRATEGIA TK_llaveC;
+
+INSTRUCCIONES_ESTRATEGIA ::= DECISION_INICIAL REGLAS;
+
+DECISION_INICIAL ::= PR_initial TK_dosPuntos DECISION;
+
+REGLAS ::= PR_rules TK_dosPuntos TK_corcheteA LISTA_REGLAS TK_corcheteC;
+
+LISTA_REGLAS ::= LISTA_REGLAS REGLA |
+                 REGLA;
+
+REGLA ::= CONDICION THEN_DECISION |
+                ELSE_DECISION;
+
+CONDICION ::= PR_if EXPRESION;
+
+THEN_DECISION ::= PR_then DECISION TK_coma;
+
+ELSE_DECISION ::= PR_else DECISION;
+
+/*
+DECLARACION DE PARTIDA
+*/
+
+PARTIDA ::= PR_match TK_id TK_llaveA INSTRUCCIONES_PARTIDA TK_llaveC;
+
+INSTRUCCIONES_PARTIDA ::= JUGADORES RONDAS PUNTAJE;
+
+JUGADORES ::= PR_players PR_strategies TK_dosPuntos TK_corcheteA LISTA_ESTRATEGIAS TK_corcheteC;
+
+LISTA_ESTRATEGIAS ::= TK_id TK_coma TK_id;
+
+RONDAS ::= PR_rounds TK_dosPuntos TK_enteros;
+
+PUNTAJE ::= PR_scoring TK_dosPuntos TK_corcheteA RESULTADO TK_corcheteC;
+
+RESULTADO ::= COOPERACION_MUTUA TK_coma DEFECCION_MUTUA TK_coma RECOMPENSA_TRAICION TK_coma CASTIGO_TRAICION;
+
+COOPERACION_MUTUA ::= PR_cooperacionM TK_dosPuntos NUMEROS;
+
+DEFECCION_MUTUA ::= PR_defeccionnM TK_dosPuntos NUMEROS;
+
+RECOMPENSA_TRAICION ::= PR_traidor TK_dosPuntos NUMEROS;
+
+CASTIGO_TRAICION ::= PR_traicionado TK_dosPuntos NUMEROS;
+
+/*
+PUNTO DE ACCESO
+*/
+
+PUNTO_ACCESO ::= PR_main TK_llaveA INSTRUCCIONES_ACCESO TK_llaveC;
+
+INSTRUCCIONES_ACCESO ::= PR_run TK_corcheteA TK_id TK_corcheteC PR_with TK_llaveA PR_seed TK_dosPuntos EXPRESION TK_llaveC;
+
+/*
+DECLARACION DE VARIABLES
+*/
+
+EXPRESION ::= LOGICAS     |
+              RELACIONALES|
+              DECISION    |
+              NUMEROS     |
+              TK_id       |
+              TK_id TK_parA TK_id TK_parC; // else last_move(opponent_history)
+
+NUMEROS ::= TK_enteros |
+            TK_decimales;
+
+LOGICAS ::= EXPRESION TK_and EXPRESION |
+            EXPRESION TK_or EXPRESION |
+            TK_not EXPRESION;
+
+RELACIONALES ::= EXPRESION TK_igual EXPRESION |
+                 EXPRESION TK_diferente EXPRESION |
+                 EXPRESION TK_mayor EXPRESION |
+                 EXPRESION TK_menor EXPRESION |
+                 EXPRESION TK_menorIgual EXPRESION |
+                 EXPRESION TK_mayorIgual EXPRESION;
+
+DECISION ::= PR_C       |
+             PR_D       |
+             EXPRESION;
