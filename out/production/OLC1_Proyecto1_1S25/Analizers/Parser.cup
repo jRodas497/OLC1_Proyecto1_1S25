@@ -1,0 +1,29 @@
+// === 1. Package e imports
+package Analizers;
+import java_cup.runtime.*;
+
+// === 2. configuración
+parser code
+{:
+    // Código Java
+:}
+
+// === 3. terminales
+
+terminal String TK_id, TK_enteros, TK_decimales, TK_igual, TK_diferente, TK_mayor, TK_menor, TK_menorIgual, TK_mayorIgual, TK_or, TK_and, TK_not;
+terminal String TK_llaveA, TK_llaveC, TK_corcheteA, TK_corcheteC, TK_parA, TK_parC, TK_dosPuntos, TK_coma;
+terminal String PR_strategy, PR_initial, PR_C, PR_D, PR_rules, PR_if, PR_then, PR_else, PR_get_move, PR_last_move, PR_get_moves_count, PR_get_last_n_moves, PR_round_number, PR_match, PR_players, PR_strategies, PR_rounds, PR_scoring, PR_cooperacionM, PR_defeccionnM, PR_traidor, PR_traicionado, PR_main, PR_run, PR_with, PR_seed;
+
+
+// === 4. no terminales
+non terminal INICIO;
+non terminal OPERACIONES;
+non terminal OPERACION;
+
+// === 5. presedencia de operadores
+
+// === 6. Gramatica
+start with INICIO;
+
+INICIO ::= PR_strategy;
+

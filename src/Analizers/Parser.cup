@@ -2,25 +2,65 @@
 package Analizers;
 import java_cup.runtime.*;
 
-// === configuración
+// === 2. configuración
 parser code
 {:
     // Código Java
 :}
 
-// === terminales
-terminal String TK_suma, TK_numero;
+// === 3. terminales
 
-// === no terminales
+terminal String TK_id, TK_enteros, TK_decimales, TK_igual, TK_diferente, TK_mayor, TK_menor, TK_menorIgual, TK_mayorIgual, TK_or, TK_and, TK_not;
+terminal String TK_llaveA, TK_llaveC, TK_corcheteA, TK_corcheteC, TK_parA, TK_parC, TK_dosPuntos, TK_coma;
+terminal String PR_strategy, PR_initial, PR_C, PR_D, PR_rules, PR_if, PR_then, PR_else, PR_get_move, PR_last_move, PR_get_moves_count, PR_get_last_n_moves, PR_round_number, PR_match, PR_players, PR_strategies, PR_rounds, PR_scoring, PR_cooperacionM, PR_defeccionnM, PR_traidor, PR_traicionado, PR_main, PR_run, PR_with, PR_seed;
+
+
+// === 4. no terminales
 non terminal INICIO;
 non terminal OPERACIONES;
 non terminal OPERACION;
 
-// === presedencia de operadores
+// === 5. presedencia de operadores
 
-// === Gramatica
+// === 6. Gramatica
 start with INICIO;
 
-INICIO ::= OPERACION;
+INICIO ::= INTRUCCIONES;
 
-OPERACION ::= TK_numero TK_suma TK_numero ;
+INTRUCCIONES ::= INTRUCCIONES INTRUCCION |
+                INTRUCCION;
+
+OPERACION ::= PR_if TK_parA EXPRESION TK_parC PR_then EXPRESION ;
+
+ESTRATEGIA ::= PR_strategy TK_id PR_llaveA INSTRUCCIONES_ESTRATEGIA PR_llaveC;
+
+INSTRUCCIONES_ESTRATEGIA ::= DECISION_INICIAL ;
+
+DECISION_INICIAL ::= PR_initial TK_dosPuntos DECISION;
+
+REGLAS ::= PR_rules TK_dosPuntos PR_corcheteA OPERACIONES PR_corcheteC;
+
+
+
+
+
+
+EXPRESION ::= LOGICAS     |
+              RELACIONALES|
+              DECISION    |
+              TK_enteros  |
+              TK_decimales;
+
+LOGICAS ::= EXPRESION TK_and EXPRESION |
+            EXPRESION TK_or EXPRESION |
+            TK_not EXPRESION;
+
+RELACIONALES ::= EXPRESION TK_igual EXPRESION |
+                 EXPRESION TK_diferente EXPRESION |
+                 EXPRESION TK_mayor EXPRESION |
+                 EXPRESION TK_menor EXPRESION |
+                 EXPRESION TK_menorIgual EXPRESION |
+                 EXPRESION TK_mayorIgual EXPRESION;
+
+DECISION ::= PR_C |
+             PR_D;

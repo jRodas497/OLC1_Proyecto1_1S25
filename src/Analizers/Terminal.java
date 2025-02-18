@@ -8,15 +8,103 @@ package Analizers;
 /** CUP generated class containing symbol constants. */
 public class Terminal {
   /* terminals */
-  public static final int error = 1;
-  public static final int TK_numero = 3;
-  public static final int TK_suma = 2;
+  public static final int PR_players = 36;
+  public static final int PR_seed = 47;
+  public static final int PR_strategy = 22;
+  public static final int PR_traicionado = 43;
+  public static final int PR_get_moves_count = 32;
+  public static final int TK_coma = 21;
+  public static final int TK_menorIgual = 9;
+  public static final int TK_menor = 8;
+  public static final int PR_with = 46;
+  public static final int TK_mayorIgual = 10;
+  public static final int PR_run = 45;
+  public static final int TK_mayor = 7;
+  public static final int TK_or = 11;
+  public static final int PR_strategies = 37;
+  public static final int PR_get_last_n_moves = 33;
+  public static final int PR_if = 27;
+  public static final int PR_round_number = 34;
+  public static final int TK_id = 2;
   public static final int EOF = 0;
+  public static final int error = 1;
+  public static final int TK_diferente = 6;
+  public static final int TK_llaveC = 15;
+  public static final int TK_llaveA = 14;
+  public static final int PR_cooperacionM = 40;
+  public static final int PR_main = 44;
+  public static final int PR_D = 25;
+  public static final int PR_scoring = 39;
+  public static final int PR_C = 24;
+  public static final int TK_not = 13;
+  public static final int TK_and = 12;
+  public static final int PR_rounds = 38;
+  public static final int PR_match = 35;
+  public static final int PR_rules = 26;
+  public static final int PR_traidor = 42;
+  public static final int PR_last_move = 31;
+  public static final int TK_parC = 19;
+  public static final int PR_defeccionnM = 41;
+  public static final int TK_parA = 18;
+  public static final int TK_corcheteC = 17;
+  public static final int TK_dosPuntos = 20;
+  public static final int TK_corcheteA = 16;
+  public static final int PR_else = 29;
+  public static final int TK_enteros = 3;
+  public static final int PR_get_move = 30;
+  public static final int PR_initial = 23;
+  public static final int TK_decimales = 4;
+  public static final int PR_then = 28;
+  public static final int TK_igual = 5;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "TK_suma",
-  "TK_numero"
+  "TK_id",
+  "TK_enteros",
+  "TK_decimales",
+  "TK_igual",
+  "TK_diferente",
+  "TK_mayor",
+  "TK_menor",
+  "TK_menorIgual",
+  "TK_mayorIgual",
+  "TK_or",
+  "TK_and",
+  "TK_not",
+  "TK_llaveA",
+  "TK_llaveC",
+  "TK_corcheteA",
+  "TK_corcheteC",
+  "TK_parA",
+  "TK_parC",
+  "TK_dosPuntos",
+  "TK_coma",
+  "PR_strategy",
+  "PR_initial",
+  "PR_C",
+  "PR_D",
+  "PR_rules",
+  "PR_if",
+  "PR_then",
+  "PR_else",
+  "PR_get_move",
+  "PR_last_move",
+  "PR_get_moves_count",
+  "PR_get_last_n_moves",
+  "PR_round_number",
+  "PR_match",
+  "PR_players",
+  "PR_strategies",
+  "PR_rounds",
+  "PR_scoring",
+  "PR_cooperacionM",
+  "PR_defeccionnM",
+  "PR_traidor",
+  "PR_traicionado",
+  "PR_main",
+  "PR_run",
+  "PR_with",
+  "PR_seed"
   };
 }
 

@@ -1,4 +1,4 @@
-//import java_cup.runtime.*;
+import java_cup.runtime.*;
 
 public class Main {
     public static void main(String[] args) {
