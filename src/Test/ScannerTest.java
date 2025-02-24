@@ -1,4 +1,4 @@
-/*package Test;
+package Test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +22,7 @@ public class ScannerTest {
             System.out.println("TOKEN" + " ".repeat(35 - "TOKEN".length()) + "LINE" + " ".repeat(6 - "LINE".length()) + "COLUMN" + " ".repeat(8 - "COLUMN".length()) + "TYPE");
             do {
                 token = scanner.next_token();
-                System.out.println(token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Lenguaje.Terminal.terminalNames[token.sym]);
+                System.out.println(token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Analizers.Terminal.terminalNames[token.sym]);
             } while(token.value != null);
         }
         catch(Exception e) {
@@ -52,4 +52,3 @@ public class ScannerTest {
         return "";
     }
 }
-*/

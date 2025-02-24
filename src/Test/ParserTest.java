@@ -1,4 +1,4 @@
-/*package Test;
+package Test;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +26,7 @@ public class ParserTest {
             for (Instruccion instruccion : parser.sentencias) {
                 try {
                     instruccion.jugar(global);
-                    for (String salida : Clases.Utilidades.Salida.salidaConsola) {
+                    for (String salida : Classes.Utility.Salida.salidaConsola) {
                         salida_ += salida;
                     }
                 } catch (Exception e) {
@@ -60,4 +60,3 @@ public class ParserTest {
         return "";
     }
 }
-*/
