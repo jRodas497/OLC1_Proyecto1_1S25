@@ -10,46 +10,46 @@ parser code
 
 // === 3. terminales
 
+terminal String RW_strategy, RW_initial, RW_C, RW_D, RW_rules, RW_if, RW_then, RW_else, RW_get_move, RW_last_move, RW_get_moves_count, get_last_n_moves ;
+terminal String RW_round_number, RW_match, RW_players, RW_strategies, RW_rounds, RW_scoring, RW_cooperacionM, RW_defeccionnM, RW_traidor, RW_traicionado, RW_main, RW_run, RW_with, RW_seed, RW_get_last_n_moves;
 terminal String TK_id, TK_enteros, TK_decimales, TK_igual, TK_diferente, TK_mayor, TK_menor, TK_menorIgual, TK_mayorIgual, TK_or, TK_and, TK_not;
 terminal String TK_llaveA, TK_llaveC, TK_corcheteA, TK_corcheteC, TK_parA, TK_parC, TK_dosPuntos, TK_coma;
-terminal String PR_strategy, PR_initial, PR_C, PR_D, PR_rules, PR_if, PR_then, PR_else, PR_get_move, PR_last_move, PR_get_moves_count, PR_get_last_n_moves, PR_round_number, PR_match, PR_players, PR_strategies, PR_rounds, PR_scoring, PR_cooperacionM, PR_defeccionnM, PR_traidor, PR_traicionado, PR_main, PR_run, PR_with, PR_seed;
-
+terminal String RW_true, RW_false;
+terminal String RW_random, RW_opponent_history, RW_self_history;
 
 // === 4. no terminales
 non terminal INICIO;
-non terminal OPERACIONES;
-non terminal OPERACION;
-non terminal INTRUCCIONES;
-non terminal INTRUCCION;
-non terminal ESTRATEGIA;
-non terminal INSTRUCCIONES_ESTRATEGIA;
-non terminal DECISION_INICIAL;
-non terminal REGLAS;
-non terminal LISTA_REGLAS;
+non terminal Instruccion INSTRUCCION;
+non terminal ESTRATEGIAS;
+non terminal CrearEstrategia ESTRATEGIA;
+non terminal InstruccionEstrategia INSTRUCCIONES_ESTRATEGIA;
+non terminal ArrayList<Instruccion> INSTRUCCIONES;
+non terminal Expresion DECISION_INICIAL;
+non terminal ArrayList<Regla> REGLAS;
+non terminal ArrayList<Regla> LISTA_REGLAS;
 non terminal REGLA;
-non terminal CONDICION;
-non terminal THEN_DECISION;
-non terminal ELSE_DECISION;
-non terminal PARTIDA;
-non terminal INSTRUCCIONES_PARTIDA;
-non terminal JUGADORES;
-non terminal LISTA_ESTRATEGIAS;
-non terminal RONDAS;
-non terminal PUNTAJE;
-non terminal RESULTADO;
-non terminal COOPERACION_MUTUA;
-non terminal DEFECCION_MUTUA;
-non terminal RECOMPENSA_TRAICION;
-non terminal CASTIGO_TRAICION;
-non terminal PUNTO_ACCESO;
+non terminal PARTIDAS;
+non terminal Instruccion PARTIDA;
+non terminal InstruccionesPartida INSTRUCIONES_PARTIDA;
+non terminal Jugadores JUGADORES;
+non terminal Expresion RONDAS;
+non terminal Puntos PUNTUACIONES;
+non terminal Puntos PUNTOS;
+non terminal Expresion COOPERACION_MUTUA;
+non terminal Expresion DEFECCION_MUTUA;
+non terminal Expresion TRAIDOR;
+non terminal Expresion TRAICIONADO;
+non terminal Instruccion PUNTO_ACCESO;
 non terminal INSTRUCCIONES_ACCESO;
-non terminal EXPRESION;
-non terminal NUMEROS;
-non terminal LOGICAS;
+non terminal Expresion EXPRESION;
 non terminal RELACIONALES;
-non terminal DECISION;
+non terminal LOGICAS;
+non terminal FUNCIONES;
+non terminal LISTA;
+non terminal ELEMENTOS;
+non terminal Expresion DECISION;
 
-// === 5. presedencia de operadores
+/*5. Precedencia de Operadores*/
 precedence left TK_igual;
 precedence left TK_mayor;
 precedence left TK_menor;
@@ -59,105 +59,100 @@ precedence left TK_and;
 precedence left TK_or;
 precedence right TK_not;
 
-// === 6. Gramatica
+/*6. Gramática*/
 start with INICIO;
 
-/*
-INICIO
-*/
+INICIO ::=  INSTRUCCIONES :inst {: sentencias = inst; :} ;
 
-INICIO ::= INTRUCCIONES;
+INSTRUCCIONES ::=
+            INSTRUCCIONES :l INSTRUCCION :i {: RESULT = l; RESULT.add(i); :} |
+            INSTRUCCION :i               {: RESULT = new ArrayList<>(Arrays.asList(i));  :} ;
 
-INTRUCCIONES ::= INTRUCCIONES INTRUCCION |
-                INTRUCCION;
+INSTRUCCION ::=
+            ESTRATEGIA :e {: RESULT = e; :} |
+            PARTIDA    :e {: RESULT = e; :} |
+            PUNTO_ACCESO :e {: RESULT = e; :};
 
-INTRUCCION ::= ESTRATEGIA   |
-               PARTIDA      |
-               PUNTO_ACCESO ;
+ESTRATEGIA ::= RW_strategy TK_id :n TK_llaveA INSTRUCCIONES_ESTRATEGIA :inst TK_llaveC {: RESULT = new CrearEstrategia(n, inst); :} ;
 
-/*
-ESTRATEGIA
-*/
+INSTRUCCIONES_ESTRATEGIA ::= DECISION_INICIAL :i REGLAS :r {: RESULT = new InstruccionEstrategia(i, r); :} ;
 
-ESTRATEGIA ::= PR_strategy TK_id TK_llaveA INSTRUCCIONES_ESTRATEGIA TK_llaveC;
+DECISION_INICIAL ::= RW_initial TK_dosPuntos DECISION :d {: RESULT = d; :} ;
 
-INSTRUCCIONES_ESTRATEGIA ::= DECISION_INICIAL REGLAS;
+REGLAS ::= RW_rules TK_dosPuntos TK_corcheteA LISTA_REGLAS :l TK_corcheteC {: RESULT = l; :} ;
 
-DECISION_INICIAL ::= PR_initial TK_dosPuntos DECISION;
+LISTA_REGLAS ::=
+            RW_if EXPRESION :c RW_then EXPRESION :a TK_coma LISTA_REGLAS :l  {: RESULT = l; RESULT.add(new Regla(c, a) ); :} |
+            RW_if EXPRESION :c RW_then EXPRESION :a                          {: RESULT = new ArrayList<Regla>(Arrays.asList(new Regla(c, a))); :} |
+            RW_else EXPRESION :a                                             {: RESULT = new ArrayList<Regla>(Arrays.asList(new Regla(null, a))); :} ;
 
-REGLAS ::= PR_rules TK_dosPuntos TK_corcheteA LISTA_REGLAS TK_corcheteC;
+// === DELCARACION DE PARTIDAS ===
 
-LISTA_REGLAS ::= LISTA_REGLAS REGLA |
-                 REGLA;
+PARTIDA ::= RW_match TK_id :n TK_llaveA INSTRUCIONES_PARTIDA :inst TK_llaveC {: RESULT = new CrearPartida(n, inst); :} ;
 
-REGLA ::= CONDICION THEN_DECISION |
-                ELSE_DECISION;
+INSTRUCIONES_PARTIDA ::= JUGADORES :j RONDAS :r PUNTUACIONES :p {: RESULT = new InstruccionesPartida(j, r, p); :};
 
-CONDICION ::= PR_if EXPRESION;
+JUGADORES ::= RW_players RW_strategies TK_dosPuntos TK_corcheteA TK_id :j1 TK_coma TK_id :j2 TK_corcheteC {: RESULT = new Jugadores(j1, j2); :} ;
 
-THEN_DECISION ::= PR_then DECISION TK_coma;
+RONDAS ::= RW_rounds TK_dosPuntos EXPRESION :exp {: RESULT = exp; :} ;
 
-ELSE_DECISION ::= PR_else DECISION;
+PUNTUACIONES ::= RW_scoring TK_dosPuntos TK_llaveA PUNTOS :p TK_llaveC {: RESULT = p; :} ;
 
-/*
-DECLARACION DE PARTIDA
-*/
+PUNTOS ::= COOPERACION_MUTUA :c TK_coma DEFECCION_MUTUA :d TK_coma TRAIDOR :tr TK_coma TRAICIONADO :ta {: RESULT = new Puntos(c, d, tr, ta); :} ;
 
-PARTIDA ::= PR_match TK_id TK_llaveA INSTRUCCIONES_PARTIDA TK_llaveC;
+COOPERACION_MUTUA ::= RW_cooperacionM TK_dosPuntos EXPRESION :exp {: RESULT =  exp; :} ;
 
-INSTRUCCIONES_PARTIDA ::= JUGADORES RONDAS PUNTAJE;
+DEFECCION_MUTUA ::= RW_defeccionnM TK_dosPuntos EXPRESION :exp {: RESULT =  exp; :} ;
 
-JUGADORES ::= PR_players PR_strategies TK_dosPuntos TK_corcheteA LISTA_ESTRATEGIAS TK_corcheteC;
+TRAIDOR ::= RW_traidor TK_dosPuntos EXPRESION :exp {: RESULT =  exp; :} ;
 
-LISTA_ESTRATEGIAS ::= TK_id TK_coma TK_id;
+TRAICIONADO ::= RW_traicionado TK_dosPuntos EXPRESION :exp {: RESULT =  exp; :} ;
 
-RONDAS ::= PR_rounds TK_dosPuntos TK_enteros;
+// === PUNTO DE ACCESO ===
 
-PUNTAJE ::= PR_scoring TK_dosPuntos TK_corcheteA RESULTADO TK_corcheteC;
+PUNTO_ACCESO ::= RW_main TK_llaveA INSTRUCCIONES_ACCESO :p TK_llaveC {: RESULT = new PuntoAcceso(p); :} ;
 
-RESULTADO ::= COOPERACION_MUTUA TK_coma DEFECCION_MUTUA TK_coma RECOMPENSA_TRAICION TK_coma CASTIGO_TRAICION;
+INSTRUCCIONES_ACCESO ::= RW_run TK_corcheteA TK_id :id TK_corcheteC RW_with TK_llaveA RW_seed TK_dosPuntos EXPRESION TK_llaveC {: RESULT = id; :} ;
 
-COOPERACION_MUTUA ::= PR_cooperacionM TK_dosPuntos NUMEROS;
+EXPRESION ::=
+            RELACIONALES |
+            LOGICAS      |
+            DECISION     :d {: RESULT = d; :}|
+            FUNCIONES    |
+            LISTA       |
+            RW_random   |
+            RW_opponent_history |
+            RW_self_history |
+            RW_round_number |
+            RW_true      :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
+            RW_false     :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
+            TK_enteros   :p {: RESULT = new Primitivo(p, Tipo.ENTERO); :} |
+            TK_decimales :p {: RESULT = new Primitivo(p, Tipo.DECIMAL); :} ;
 
-DEFECCION_MUTUA ::= PR_defeccionnM TK_dosPuntos NUMEROS;
+RELACIONALES ::=
+            EXPRESION TK_igual EXPRESION |
+            EXPRESION TK_mayorIgual EXPRESION |
+            EXPRESION TK_menorIgual EXPRESION |
+            EXPRESION TK_mayor EXPRESION |
+            EXPRESION TK_menor EXPRESION ;
 
-RECOMPENSA_TRAICION ::= PR_traidor TK_dosPuntos NUMEROS;
+LOGICAS ::=
+            EXPRESION TK_and EXPRESION |
+            EXPRESION TK_or EXPRESION  |
+            TK_not EXPRESION ;
 
-CASTIGO_TRAICION ::= PR_traicionado TK_dosPuntos NUMEROS;
+FUNCIONES ::=
+            RW_get_move TK_parA EXPRESION TK_coma EXPRESION TK_parC |
+            RW_last_move TK_parA EXPRESION TK_parC                  |
+            RW_get_moves_count TK_parA EXPRESION TK_coma EXPRESION TK_parC |
+            RW_get_last_n_moves TK_parA EXPRESION TK_coma EXPRESION TK_parC;
 
-/*
-PUNTO DE ACCESO
-*/
+LISTA ::= TK_corcheteA ELEMENTOS TK_corcheteC ;
 
-PUNTO_ACCESO ::= PR_main TK_llaveA INSTRUCCIONES_ACCESO TK_llaveC;
+ELEMENTOS ::=
+            ELEMENTOS TK_coma EXPRESION |
+            EXPRESION ;
 
-INSTRUCCIONES_ACCESO ::= PR_run TK_corcheteA TK_id TK_corcheteC PR_with TK_llaveA PR_seed TK_dosPuntos EXPRESION TK_llaveC;
-
-/*
-DECLARACION DE VARIABLES
-*/
-
-EXPRESION ::= LOGICAS     |
-              RELACIONALES|
-              DECISION    |
-              NUMEROS     |
-              TK_id       |
-              TK_id TK_parA TK_id TK_parC; // else last_move(opponent_history)
-
-NUMEROS ::= TK_enteros |
-            TK_decimales;
-
-LOGICAS ::= EXPRESION TK_and EXPRESION |
-            EXPRESION TK_or EXPRESION |
-            TK_not EXPRESION;
-
-RELACIONALES ::= EXPRESION TK_igual EXPRESION |
-                 EXPRESION TK_diferente EXPRESION |
-                 EXPRESION TK_mayor EXPRESION |
-                 EXPRESION TK_menor EXPRESION |
-                 EXPRESION TK_menorIgual EXPRESION |
-                 EXPRESION TK_mayorIgual EXPRESION;
-
-DECISION ::= PR_C       |
-             PR_D       |
-             EXPRESION;
+DECISION ::=
+            RW_C :d {: RESULT = new Primitivo(d, Tipo.DECISION); :} |
+            RW_D :d {: RESULT = new Primitivo(d, Tipo.DECISION); :} ;

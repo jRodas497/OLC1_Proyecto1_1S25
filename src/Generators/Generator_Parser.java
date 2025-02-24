@@ -1,6 +1,6 @@
 package Generators;
 
-public class GeneratorsP {
+public class Generator_Parser {
     public static void main(String[] args) {
         try {
             java_cup.Main.main(
