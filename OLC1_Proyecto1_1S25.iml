@@ -7,6 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="java-cup-11b" level="project" />
+    <orderEntry type="library" exported="" name="java-cup-11b-runtime" level="project" />
+    <orderEntry type="library" exported="" name="jflex-full-1.7.0" level="project" />
   </component>
 </module>
