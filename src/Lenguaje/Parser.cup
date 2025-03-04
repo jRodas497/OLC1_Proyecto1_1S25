@@ -10,12 +10,21 @@ import Clases.Abstractas.Instruccion;
 import Clases.Expresion.*;
 import Clases.Instruccion.*;
 import Clases.Objetos.*;
+import Clases.Errores.ErrorSintactico;
 
 /* 2. Codigo para el parser, variables y metodos */
 parser code
 {:
     // Codigo Java
     public ArrayList<Instruccion> sentencias;
+
+    public ArrayList<ErrorSintactico> erroresSintacticos = new ArrayList<>();
+    public void syntax_error(Symbol sym) {
+        erroresSintacticos.add(new ErrorSintactico(sym.left,sym.right,sym.value,Terminal.terminalNames[sym.sym]));
+    }
+    public void unrecovered_syntax_error(Symbol sym) throws java.lang.Exception {
+        erroresSintacticos.add(new ErrorSintactico("Error Sintáctico sin recuperar."));
+    }
 :}
 
 /* 3. Terminales*/
@@ -51,7 +60,7 @@ non terminal Expresion TRAICIONADO;
 non terminal Instruccion PUNTO_ACCESO;
 non terminal INSTRUCCIONES_ACCESO;
 non terminal Expresion EXPRESION;
-non terminal RELACIONALES;
+non terminal Expresion RELACIONALES;
 non terminal LOGICAS;
 non terminal FUNCIONES;
 non terminal LISTA;
@@ -73,14 +82,15 @@ start with INICIO;
 
 INICIO ::=  INSTRUCCIONES :inst {: sentencias = inst; :} ;
 
-INSTRUCCIONES ::= 
+INSTRUCCIONES ::=
             INSTRUCCIONES :l INSTRUCCION :i {: RESULT = l; RESULT.add(i); :} |
             INSTRUCCION :i               {: RESULT = new ArrayList<>(Arrays.asList(i));  :} ;
 
-INSTRUCCION ::= 
+INSTRUCCION ::=
             ESTRATEGIA :e {: RESULT = e; :} |
             PARTIDA    :e {: RESULT = e; :} |
-            PUNTO_ACCESO :e {: RESULT = e; :};
+            PUNTO_ACCESO :e {: RESULT = e; :} |
+            error ;
 
 ESTRATEGIA ::= RW_strategy TK_id :n TK_llaveA INSTRUCCIONES_ESTRATEGIA :inst TK_llaveC {: RESULT = new CrearEstrategia(n, inst); :} ;
 
@@ -90,7 +100,7 @@ DECISION_INICIAL ::= RW_initial TK_dosPuntos DECISION :d {: RESULT = d; :} ;
 
 REGLAS ::= RW_rules TK_dosPuntos TK_corcheteA LISTA_REGLAS :l TK_corcheteC {: RESULT = l; :} ;
 
-LISTA_REGLAS ::= 
+LISTA_REGLAS ::=
             RW_if EXPRESION :c RW_then EXPRESION :a TK_coma LISTA_REGLAS :l  {: RESULT = l; RESULT.add(new Regla(c, a) ); :} |
             RW_if EXPRESION :c RW_then EXPRESION :a                          {: RESULT = new ArrayList<Regla>(Arrays.asList(new Regla(c, a))); :} |
             RW_else EXPRESION :a                                             {: RESULT = new ArrayList<Regla>(Arrays.asList(new Regla(null, a))); :} ;
@@ -124,7 +134,7 @@ PUNTO_ACCESO ::= RW_main TK_llaveA INSTRUCCIONES_ACCESO :p TK_llaveC {: RESULT =
 INSTRUCCIONES_ACCESO ::= RW_run TK_corcheteA TK_id :id TK_corcheteC RW_with TK_llaveA RW_seed TK_dosPuntos EXPRESION TK_llaveC {: RESULT = id; :} ;
 
 EXPRESION ::=
-            RELACIONALES |
+            RELACIONALES :r {: RESULT = r; :} |
             LOGICAS      |
             DECISION     :d {: RESULT = d; :}|
             FUNCIONES    |
@@ -132,14 +142,14 @@ EXPRESION ::=
             RW_random   |
             RW_opponent_history |
             RW_self_history |
-            RW_round_number |
+            RW_round_number :r {: RESULT = new RondaActual(); :} |
             RW_true      :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
             RW_false     :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
             TK_enteros   :p {: RESULT = new Primitivo(p, Tipo.ENTERO); :} |
             TK_decimales :p {: RESULT = new Primitivo(p, Tipo.DECIMAL); :} ;
 
-RELACIONALES ::= 
-            EXPRESION TK_igual EXPRESION |
+RELACIONALES ::=
+            EXPRESION :exp1 TK_igual :op EXPRESION :exp2     {: RESULT = new Relacional(exp1, op, exp2); :} |
             EXPRESION TK_mayorIgual EXPRESION |
             EXPRESION TK_menorIgual EXPRESION |
             EXPRESION TK_mayor EXPRESION |

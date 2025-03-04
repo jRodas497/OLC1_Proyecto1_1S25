@@ -5,16 +5,17 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
+import Clases.Errores.ErrorLexico;
 import Lenguaje.Scanner;
 import java_cup.runtime.Symbol;
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/Prueba.txt");
+            String input = readInput("./Inputs/Prueba2.txt");
             Scanner scanner = new Scanner(
-                new BufferedReader(
-                    new StringReader(input)
-                )
+                    new BufferedReader(
+                            new StringReader(input)
+                    )
             );
             Symbol token = null;
             System.out.println("TOKEN" + " ".repeat(35 - "TOKEN".length()) + "LINE" + " ".repeat(6 - "LINE".length()) + "COLUMN" + " ".repeat(8 - "COLUMN".length()) + "TYPE");
@@ -22,6 +23,11 @@ public class ScannerTest {
                 token = scanner.next_token();
                 System.out.println(token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Lenguaje.Terminal.terminalNames[token.sym]);
             } while(token.value != null);
+
+            System.out.println("=== ERRORES LEXICOS ===");
+            for (ErrorLexico error : scanner.getErroresLexicos()) {
+                System.out.println(error.toString());
+            }
         }
         catch(Exception e) {
             System.out.println(e);
@@ -34,7 +40,7 @@ public class ScannerTest {
             FileInputStream fis = new FileInputStream(archivo);
             InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
             BufferedReader br = new BufferedReader(isr);
-            
+
             String texto = "";
             String linea;
             while ((linea = br.readLine()) != null) {

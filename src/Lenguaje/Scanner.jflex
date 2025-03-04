@@ -1,11 +1,20 @@
 /* 1. Package e importaciones*/
 package Lenguaje;
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import Clases.Errores.ErrorLexico;
 
 %%
 /* 2. Configuraciones para el analisis (Operaciones y Declaraciones) */
 %{
     // Codigo Java
+    ArrayList<ErrorLexico> erroresLexicos = new ArrayList<>();
+    void addErrorLexico(int linea, int columna, String lexema){
+        erroresLexicos.add(new ErrorLexico(linea, columna, lexema));
+    }
+    public ArrayList<ErrorLexico> getErroresLexicos(){
+        return erroresLexicos;
+    }
 %}
 
 // Directivas
@@ -96,3 +105,4 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 \n                       {yychar = 1;}
 {COMMENTS}               {}
 {COMMENTM}               {}
+.                        {addErrorLexico(yyline, yychar, yytext());}

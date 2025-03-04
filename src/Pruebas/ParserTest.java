@@ -7,16 +7,17 @@ import java.io.StringReader;
 
 import Clases.Abstractas.Instruccion;
 import Clases.Entorno.Entorno;
+import Clases.Errores.ErrorSintactico;
 import Lenguaje.Parser;
 import Lenguaje.Scanner;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/Prueba.txt");
+            String input = readInput("./Inputs/Prueba2.txt");
             Scanner scanner = new Scanner(
-                new BufferedReader(
-                    new StringReader(input)
-                )
+                    new BufferedReader(
+                            new StringReader(input)
+                    )
             );
             Parser parser = new Parser(scanner);
             parser.parse();
@@ -26,13 +27,18 @@ public class ParserTest {
                 try {
                     instruccion.jugar(global);
                     for (String salida : Clases.Utilidades.Salida.salidaConsola) {
-                        salida_ += salida;
+                        salida_ += salida + "\n";
                     }
                 } catch (Exception e) {
-
+                    System.out.println(e);
                 }
             }
             System.out.println(salida_);
+
+            System.out.println("=== ERRORES SINTACTICOS ===");
+            for (ErrorSintactico error : parser.erroresSintacticos) {
+                System.out.println(error.toString());
+            }
         }
         catch(Exception e) {
             System.out.println(e);
