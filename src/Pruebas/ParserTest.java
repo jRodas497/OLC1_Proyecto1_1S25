@@ -12,8 +12,13 @@ import Lenguaje.Parser;
 import Lenguaje.Scanner;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("No file path provided.");
+        }
+        String filePath = args[0];
+
         try {
-            String input = readInput("./Inputs/Prueba2.txt");
+            String input = readInput(filePath);
             Scanner scanner = new Scanner(
                     new BufferedReader(
                             new StringReader(input)
