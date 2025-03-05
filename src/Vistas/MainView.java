@@ -2,8 +2,6 @@ package Vistas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +13,7 @@ public class MainView {
     private JTextArea textArea1;
     private JTable table;
     private JTextArea textArea2;
+    private File selectedFile;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MainView::new);
@@ -24,7 +23,8 @@ public class MainView {
         // Crear el marco principal
         JFrame frame = new JFrame("Main View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(800, 700);
+        frame.setLocationRelativeTo(null);
 
         // Crear la barra de menú
         JMenuBar menuBar = new JMenuBar();
@@ -74,16 +74,20 @@ public class MainView {
 
         // Crear el panel principal con un BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         // Crear el panel superior con un GridLayout para los dos cuadros
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JPanel topPanel = new JPanel(new GridLayout(1, 2, 15, 15));
 
-        // Crear el primer cuadro de texto
+        // Crear el primer cuadro de texto con etiqueta
         textArea1 = new JTextArea();
         JScrollPane scrollPane1 = new JScrollPane(textArea1);
-        topPanel.add(scrollPane1);
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(new JLabel("ENTRADA"), BorderLayout.NORTH);
+        inputPanel.add(scrollPane1, BorderLayout.CENTER);
+        topPanel.add(inputPanel);
 
-        // Crear la tabla
+        // Crear la tabla con etiqueta
         String[] columnNames = {"Column 1", "Column 2", "Column 3"};
         Object[][] data = {
                 {"Data 1", "Data 2", "Data 3"},
@@ -92,15 +96,22 @@ public class MainView {
         };
         table = new JTable(data, columnNames);
         JScrollPane scrollPane2 = new JScrollPane(table);
-        topPanel.add(scrollPane2);
+        JPanel reportPanel = new JPanel(new BorderLayout());
+        reportPanel.add(new JLabel("REPORTE"), BorderLayout.NORTH);
+        reportPanel.add(scrollPane2, BorderLayout.CENTER);
+        topPanel.add(reportPanel);
 
-        // Crear el tercer cuadro de texto
+        // Crear el tercer cuadro de texto con etiqueta y altura fija
         textArea2 = new JTextArea();
         JScrollPane scrollPane3 = new JScrollPane(textArea2);
+        scrollPane3.setPreferredSize(new Dimension(800, 200));
+        JPanel outputPanel = new JPanel(new BorderLayout());
+        outputPanel.add(new JLabel("SALIDA"), BorderLayout.NORTH);
+        outputPanel.add(scrollPane3, BorderLayout.CENTER);
 
         // Agregar los paneles al panel principal
         mainPanel.add(topPanel, BorderLayout.CENTER);
-        mainPanel.add(scrollPane3, BorderLayout.SOUTH);
+        mainPanel.add(outputPanel, BorderLayout.SOUTH);
 
         // Agregar el panel principal al marco
         frame.add(mainPanel);
@@ -117,7 +128,7 @@ public class MainView {
         JFileChooser fileChooser = new JFileChooser();
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            selectedFile = fileChooser.getSelectedFile();
             try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
                 StringBuilder content = new StringBuilder();
                 String line;
@@ -125,9 +136,6 @@ public class MainView {
                     content.append(line).append("\n");
                 }
                 textArea1.setText(content.toString());
-                // Ejecutar ParserTest y ScannerTest con el contenido del archivo
-                ParserTest.main(new String[]{selectedFile.getAbsolutePath()});
-                ScannerTest.main(new String[]{selectedFile.getAbsolutePath()});
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -156,6 +164,25 @@ public class MainView {
     }
 
     private void executeTextAreaContent() {
-        // Implementar lógica para ejecutar el contenido del primer text area
+        if (selectedFile != null) {
+            try {
+                // Redirigir la salida estándar a textArea2
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                PrintStream ps = new PrintStream(baos);
+                PrintStream old = System.out;
+                System.setOut(ps);
+
+                // Ejecutar ParserTest y ScannerTest
+                ParserTest.main(new String[]{selectedFile.getAbsolutePath()});
+                ScannerTest.main(new String[]{selectedFile.getAbsolutePath()});
+
+                // Restaurar la salida estándar y mostrar el resultado en textArea2
+                System.out.flush();
+                System.setOut(old);
+                textArea2.setText(baos.toString());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

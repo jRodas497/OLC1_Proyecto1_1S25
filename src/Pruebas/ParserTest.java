@@ -7,16 +7,15 @@ import java.io.StringReader;
 
 import Clases.Abstractas.Instruccion;
 import Clases.Entorno.Entorno;
-import Clases.Errores.ErrorSintactico;
 import Lenguaje.Parser;
 import Lenguaje.Scanner;
+
 public class ParserTest {
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
             throw new IllegalArgumentException("No file path provided.");
         }
         String filePath = args[0];
-
         try {
             String input = readInput(filePath);
             Scanner scanner = new Scanner(
@@ -35,37 +34,34 @@ public class ParserTest {
                         salida_ += salida + "\n";
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }
             System.out.println(salida_);
-
-            System.out.println("=== ERRORES SINTACTICOS ===");
-            for (ErrorSintactico error : parser.erroresSintacticos) {
-                System.out.println(error.toString());
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.err.println("Syntax error at character on input");
+            e.printStackTrace();
+            throw new Exception("Can't recover from previous error(s)");
         }
     }
+
     public static String readInput(String path) {
         try {
             File archivo = new File(path);
             FileInputStream fis = new FileInputStream(archivo);
             InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
             BufferedReader br = new BufferedReader(isr);
-            String texto = "";
+            StringBuilder texto = new StringBuilder();
             String linea;
             while ((linea = br.readLine()) != null) {
-                texto += linea + "\n";
+                texto.append(linea).append("\n");
             }
             br.close();
             fis.close();
-            return texto;
+            return texto.toString();
         }
         catch(Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return "";
     }
