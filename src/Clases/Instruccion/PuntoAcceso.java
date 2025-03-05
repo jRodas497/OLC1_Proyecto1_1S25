@@ -51,9 +51,9 @@ public class PuntoAcceso extends Instruccion{
             Salida.salidaConsola.add("\t        \uD83E\uDD1D Cooperación Mutua: " + cooperacion);
             Salida.salidaConsola.add("\t        \uD83D\uDCAC Declaración Mutua: " + defeccion);
             Salida.salidaConsola.add("\t        ⚡ Traición: " + traidor + "/" + traicionado + " (Traidor/Traicionado)");
-            Salida.salidaConsola.add("\n  \uD83D\uDCCC DESARROLLO");
-            Salida.salidaConsola.add("------------------------------------");
-            Salida.salidaConsola.add("  \uD83D\uDCC5 Rondas: ");
+            Salida.salidaConsola.add("\n [ DESARROLLO ]");
+            Salida.salidaConsola.add("====================================");
+            Salida.salidaConsola.add("\tRonda\t|\t" + estrategia1.nombre + "\t|\t" + estrategia2.nombre + "\t|\tPuntuación\n");
 
             for (int i = 0; i < rondas; i++) {
                 entorno.setRondaActual(i);
@@ -97,19 +97,19 @@ public class PuntoAcceso extends Instruccion{
     public void formato(int i, String estrategia1, String estrategia2) {
         int ronda = i + 1;
         if (decision1 && decision2) { // Cooperacon mutua
-            Salida.salidaConsola.add("\t➊ Ronda:  " + ronda + ": \t"  + estrategia1 + " = C" + " , " + estrategia2 + " = C (" + cooperacion + "-" + cooperacion + ")");
+            Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tC\t" + "|\t" + "C\t|\t(" + cooperacion + "-" + cooperacion + ")");
             puntuacion1 += cooperacion;
             puntuacion2 += cooperacion;
         } else if (!decision1 && !decision2) { // Defección mutua
-            Salida.salidaConsola.add("\t➊ Ronda:  " + ronda + ": \t" + estrategia1 + " = D" + " , " + estrategia2 + " = D (" + defeccion + "-" + defeccion + ")");
+            Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tD\t" + "|\t" + "D\t|\t(" + defeccion + "-" + defeccion + ")");
             puntuacion1 += defeccion;
             puntuacion2 += defeccion;
         } else if (!decision1 && decision2) { // Estrategia 1 defectuo - Estrategia coopero
-            Salida.salidaConsola.add("\t➊ Ronda:  " + ronda + ": \t" + estrategia1 + " = D" + " , " + estrategia2 + " = C (" + traidor + "-" + traicionado + ")");
+            Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tD\t" + "|\t" + "C\t|\t(" + traidor + "-" + traicionado + ")");
             puntuacion1 += traidor;
             puntuacion2 += traicionado;
         } else { // Estrategia 1 coopero - Estrartegia 2 defectua
-            Salida.salidaConsola.add("\t➊ Ronda:  " + ronda + ": \t" + estrategia1 + " = C" + " , " + estrategia2 + " = D (" + traicionado + "-" + traidor + ")");
+            Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tC\t" + "|\t" + "D\t|\t(" + traicionado + "-" + traidor + ")");
             puntuacion1 += traicionado;
             puntuacion2 += traidor;
         }
