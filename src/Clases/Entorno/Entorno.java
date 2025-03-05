@@ -20,7 +20,7 @@ public class Entorno {
 
     public boolean guardarEstrategia(String nombre, Estrategia estrategia) {
         if (!this.estrategias.containsKey(nombre)) {
-            System.out.println("ESTR: " + nombre);
+            //System.out.println("ESTR: " + nombre);
             this.estrategias.put(nombre, estrategia);
             return true;
         }
@@ -30,7 +30,7 @@ public class Entorno {
     public boolean guardarPartida(String nombre, Partida partida) {
         if (!this.partidas.containsKey(nombre)) {
             this.partidas.put(nombre, partida);
-            System.out.println("Se está guardando la partida");
+            //System.out.println("Se está guardando la partida");
             return true;
         }
         return false;
@@ -38,7 +38,7 @@ public class Entorno {
 
     public Partida obtenerPartida(String nombre){
         if (partidas.containsKey(nombre)) {
-            System.out.println("Encuentra la partida");
+            //System.out.println("Encuentra la partida");
             return partidas.get(nombre);
         }
         return null;
@@ -46,7 +46,7 @@ public class Entorno {
 
     public Estrategia obtenerEstrategia(String nombre){
         if (estrategias.containsKey(nombre)) {
-            System.out.println("Encuentra la estrategia");
+            //System.out.println("Encuentra la estrategia");
             return estrategias.get(nombre);
         }
         return null;

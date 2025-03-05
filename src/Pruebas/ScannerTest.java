@@ -9,16 +9,11 @@ import Clases.Errores.ErrorLexico;
 import Lenguaje.Scanner;
 import java_cup.runtime.Symbol;
 public class ScannerTest {
-    public static void main(String[] args) throws Exception {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("No file path provided.");
-        }
-        String filePath = args[0];
+    public static void main(String content) throws Exception {
         try {
-            String input = readInput(filePath);
             Scanner scanner = new Scanner(
                     new BufferedReader(
-                            new StringReader(input)
+                            new StringReader(content)
                     )
             );
             Symbol token = null;

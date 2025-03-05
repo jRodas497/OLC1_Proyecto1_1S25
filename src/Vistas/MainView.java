@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import Pruebas.ParserTest;
 import Pruebas.ScannerTest;
+import Clases.Utilidades.Salida;
 import java.io.*;
 
 public class MainView {
@@ -23,7 +24,7 @@ public class MainView {
         // Crear el marco principal
         JFrame frame = new JFrame("Main View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 700);
+        frame.setSize(900, 700);
         frame.setLocationRelativeTo(null);
 
         // Crear la barra de menú
@@ -86,6 +87,23 @@ public class MainView {
         inputPanel.add(new JLabel("ENTRADA"), BorderLayout.NORTH);
         inputPanel.add(scrollPane1, BorderLayout.CENTER);
         topPanel.add(inputPanel);
+
+        textArea1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                executeTextAreaContent();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                executeTextAreaContent();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                executeTextAreaContent();
+            }
+        });
 
         // Crear la tabla con etiqueta
         String[] columnNames = {"Column 1", "Column 2", "Column 3"};
@@ -164,25 +182,25 @@ public class MainView {
     }
 
     private void executeTextAreaContent() {
-        if (selectedFile != null) {
-            try {
-                // Redirigir la salida estándar a textArea2
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                PrintStream ps = new PrintStream(baos);
-                PrintStream old = System.out;
-                System.setOut(ps);
+        try {
+            // Clear the previous output
+            Salida.salidaConsola.clear();
 
-                // Ejecutar ParserTest y ScannerTest
-                ParserTest.main(new String[]{selectedFile.getAbsolutePath()});
-                ScannerTest.main(new String[]{selectedFile.getAbsolutePath()});
+            // Get the content from textArea1
+            String content = textArea1.getText();
 
-                // Restaurar la salida estándar y mostrar el resultado en textArea2
-                System.out.flush();
-                System.setOut(old);
-                textArea2.setText(baos.toString());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            // Pass the content to ScannerTest and ParserTest
+            ScannerTest.main(content);
+            ParserTest.main(content);
+
+            // Display the content of salidaPartida in textArea2
+            StringBuilder output = new StringBuilder();
+            for (String line : Salida.salidaConsola) {
+                output.append(line).append("\n");
             }
+            textArea2.setText(output.toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
