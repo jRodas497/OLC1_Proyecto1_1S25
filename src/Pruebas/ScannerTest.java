@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import Clases.Errores.ErrorLexico;
+import Clases.Utilidades.Salida;
 import Lenguaje.Scanner;
 import java_cup.runtime.Symbol;
 public class ScannerTest {
@@ -16,20 +17,27 @@ public class ScannerTest {
                             new StringReader(content)
                     )
             );
-            Symbol token = null;
-            System.out.println("TOKEN" + " ".repeat(35 - "TOKEN".length()) + "LINE" + " ".repeat(6 - "LINE".length()) + "COLUMN" + " ".repeat(8 - "COLUMN".length()) + "TYPE");
+            Symbol token;
+            Salida.tokens.clear();
+            Salida.filas.clear();
+            Salida.columnas.clear();
+            Salida.tipos.clear();
+
             do {
                 token = scanner.next_token();
-                System.out.println(token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Lenguaje.Terminal.terminalNames[token.sym]);
-            } while(token.value != null);
+                if (token.value != null) {
+                    Salida.tokens.add(token.value.toString());
+                    Salida.filas.add(token.left);
+                    Salida.columnas.add(token.right);
+                    Salida.tipos.add(Lenguaje.Terminal.terminalNames[token.sym]);
+                }
+            } while (token.value != null);
 
-            System.out.println("=== ERRORES LEXICOS ===");
             for (ErrorLexico error : scanner.getErroresLexicos()) {
-                System.out.println(error.toString());
+                Salida.salidaConsola.add(error.toString());
             }
-        }
-        catch(Exception e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,6 +1,7 @@
 package Vistas;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +25,7 @@ public class MainView {
         // Crear el marco principal
         JFrame frame = new JFrame("Main View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 700);
+        frame.setSize(1200, 700);
         frame.setLocationRelativeTo(null);
 
         // Crear la barra de menú
@@ -88,31 +89,10 @@ public class MainView {
         inputPanel.add(scrollPane1, BorderLayout.CENTER);
         topPanel.add(inputPanel);
 
-        textArea1.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                executeTextAreaContent();
-            }
-
-            @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                executeTextAreaContent();
-            }
-
-            @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                executeTextAreaContent();
-            }
-        });
-
         // Crear la tabla con etiqueta
-        String[] columnNames = {"Column 1", "Column 2", "Column 3"};
-        Object[][] data = {
-                {"Data 1", "Data 2", "Data 3"},
-                {"Data 4", "Data 5", "Data 6"},
-                {"Data 7", "Data 8", "Data 9"}
-        };
-        table = new JTable(data, columnNames);
+        String[] columnNames = {"Token", "Fila", "Columna", "Tipo"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        table = new JTable(tableModel);
         JScrollPane scrollPane2 = new JScrollPane(table);
         JPanel reportPanel = new JPanel(new BorderLayout());
         reportPanel.add(new JLabel("REPORTE"), BorderLayout.NORTH);
@@ -199,6 +179,18 @@ public class MainView {
                 output.append(line).append("\n");
             }
             textArea2.setText(output.toString());
+
+            // Update the table with tokens, rows, columns, and types
+            DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+            tableModel.setRowCount(0); // Clear existing rows
+            for (int i = 0; i < Salida.tokens.size(); i++) {
+                tableModel.addRow(new Object[]{
+                        Salida.tokens.get(i),
+                        Salida.filas.get(i),
+                        Salida.columnas.get(i),
+                        Salida.tipos.get(i)
+                });
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

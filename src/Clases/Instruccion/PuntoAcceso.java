@@ -8,7 +8,7 @@ import Clases.Objetos.Partida;
 import Clases.Utilidades.Salida;
 import Clases.Utilidades.TipoInstruccion;
 
-public class PuntoAcceso extends Instruccion{
+public class PuntoAcceso extends Instruccion {
     Object partida;
     int rondas;
     boolean decision1;
@@ -19,9 +19,14 @@ public class PuntoAcceso extends Instruccion{
     int traicionado = 0;
     int puntuacion1 = 0;
     int puntuacion2 = 0;
+    int cooperaciones1 = 0;
+    int defecciones1 = 0;
+    int cooperaciones2 = 0;
+    int defecciones2 = 0;
 
     Estrategia estrategia1;
     Estrategia estrategia2;
+
     public PuntoAcceso(Object partida) {
         super(TipoInstruccion.MAIN);
         this.partida = partida;
@@ -70,8 +75,8 @@ public class PuntoAcceso extends Instruccion{
         }
         Salida.salidaConsola.add(" \n \uD83D\uDCCC RESULTADO");
         Salida.salidaConsola.add("========================================================================");
-        Salida.salidaConsola.add("\t \uD83C\uDF96\uFE0F Puntuación " + estrategia1.nombre + ": " + puntuacion1);
-        Salida.salidaConsola.add("\t \uD83C\uDF96\uFE0F Puntuación " + estrategia2.nombre + ": " + puntuacion2);
+        Salida.salidaConsola.add("\t \uD83C\uDF96\uFE0F Puntuación " + estrategia1.nombre + ": " + puntuacion1 + " \n\t\t --> (" + getPercentage(defecciones1, rondas) + "% D, " + getPercentage(cooperaciones1, rondas) + "% C)");
+        Salida.salidaConsola.add("\t \uD83C\uDF96\uFE0F Puntuación " + estrategia2.nombre + ": " + puntuacion2 + " \n\t\t --> (" + getPercentage(defecciones2, rondas) + "% D, " + getPercentage(cooperaciones2, rondas) + "% C)");
         Salida.salidaConsola.add("========================================================================");
     }
 
@@ -100,18 +105,30 @@ public class PuntoAcceso extends Instruccion{
             Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tC\t" + "|\t" + "C\t|\t(" + cooperacion + "-" + cooperacion + ")");
             puntuacion1 += cooperacion;
             puntuacion2 += cooperacion;
+            cooperaciones1++;
+            cooperaciones2++;
         } else if (!decision1 && !decision2) { // Defección mutua
             Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tD\t" + "|\t" + "D\t|\t(" + defeccion + "-" + defeccion + ")");
             puntuacion1 += defeccion;
             puntuacion2 += defeccion;
+            defecciones1++;
+            defecciones2++;
         } else if (!decision1 && decision2) { // Estrategia 1 defectuo - Estrategia coopero
             Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tD\t" + "|\t" + "C\t|\t(" + traidor + "-" + traicionado + ")");
             puntuacion1 += traidor;
             puntuacion2 += traicionado;
+            defecciones1++;
+            cooperaciones2++;
         } else { // Estrategia 1 coopero - Estrartegia 2 defectua
             Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tC\t" + "|\t" + "D\t|\t(" + traicionado + "-" + traidor + ")");
             puntuacion1 += traicionado;
             puntuacion2 += traidor;
+            cooperaciones1++;
+            defecciones2++;
         }
+    }
+
+    private String getPercentage(int count, int total) {
+        return String.format("%.2f", (count * 100.0) / total);
     }
 }
