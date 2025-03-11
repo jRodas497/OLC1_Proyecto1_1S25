@@ -3,5 +3,5 @@ public enum Tipo {
     DECISION,
     ENTERO,
     DECIMAL,
-    BOOLEAN
+    BOOLEAN,
 }

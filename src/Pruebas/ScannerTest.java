@@ -7,8 +7,9 @@ import java.io.StringReader;
 
 import Clases.Errores.ErrorLexico;
 import Clases.Utilidades.Salida;
-import Lenguaje.Scanner;
 import java_cup.runtime.Symbol;
+import Lenguaje.Scanner;
+
 public class ScannerTest {
     public static void main(String content) throws Exception {
         try {

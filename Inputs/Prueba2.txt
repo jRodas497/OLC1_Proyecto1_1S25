@@ -1,17 +1,16 @@
 strategy Graaskamp {
     initial: D
     rules: [
-        if 15 == 17 then D,
-        if round_number == 5 then C,
-        if false then C,
+        if round_number < 5 then D,
+        if false then D,
         else D
     ]
 }
 
 strategy Random {
-    initial: C
+    initial: D
     rules: [
-        else C
+        else D
     ]
 }
 

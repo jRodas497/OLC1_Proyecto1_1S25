@@ -22,19 +22,19 @@ public class MainView {
     }
 
     public MainView() {
-        // Crear el marco principal
+        // marco principal
         JFrame frame = new JFrame("Main View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1200, 700);
         frame.setLocationRelativeTo(null);
 
-        // Crear la barra de menú
+        // barra de menú
         JMenuBar menuBar = new JMenuBar();
         JMenu menu1 = new JMenu("    Archivo    ");
         JMenu menu2 = new JMenu("    Reportes    ");
         JMenu executeMenu = new JMenu("    Ejecutar    ");
 
-        // Agregar submenús al primer ítem
+        // submenús - primer ítem
         JMenuItem newFileItem = new JMenuItem("  Nuevo Archivo    ");
         newFileItem.addActionListener(e -> createNewFile());
         JMenuItem openFileItem = new JMenuItem("  Abrir    ");
@@ -46,7 +46,7 @@ public class MainView {
         menu1.add(openFileItem);
         menu1.add(saveFileItem);
 
-        // Agregar submenús al segundo ítem
+        // submenús - segundo ítem
         JMenuItem tokenReportItem = new JMenuItem("  Reporte de tokens    ");
         tokenReportItem.addActionListener(e -> generateTokenReport());
         JMenuItem errorReportItem = new JMenuItem("  Reporte de errores    ");
@@ -55,7 +55,7 @@ public class MainView {
         menu2.add(tokenReportItem);
         menu2.add(errorReportItem);
 
-        // Agregar acción al menú de ejecutar
+        // acción al botón ejecutar
         executeMenu.addMenuListener(new javax.swing.event.MenuListener() {
             @Override
             public void menuSelected(javax.swing.event.MenuEvent e) {
@@ -74,14 +74,11 @@ public class MainView {
         menuBar.add(executeMenu);
         frame.setJMenuBar(menuBar);
 
-        // Crear el panel principal con un BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // Crear el panel superior con un GridLayout para los dos cuadros
         JPanel topPanel = new JPanel(new GridLayout(1, 2, 15, 15));
 
-        // Crear el primer cuadro de texto con etiqueta
         textArea1 = new JTextArea();
         JScrollPane scrollPane1 = new JScrollPane(textArea1);
         JPanel inputPanel = new JPanel(new BorderLayout());
@@ -89,7 +86,6 @@ public class MainView {
         inputPanel.add(scrollPane1, BorderLayout.CENTER);
         topPanel.add(inputPanel);
 
-        // Crear la tabla con etiqueta
         String[] columnNames = {"Token", "Fila", "Columna", "Tipo"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
@@ -99,7 +95,6 @@ public class MainView {
         reportPanel.add(scrollPane2, BorderLayout.CENTER);
         topPanel.add(reportPanel);
 
-        // Crear el tercer cuadro de texto con etiqueta y altura fija
         textArea2 = new JTextArea();
         JScrollPane scrollPane3 = new JScrollPane(textArea2);
         scrollPane3.setPreferredSize(new Dimension(800, 200));
@@ -107,14 +102,11 @@ public class MainView {
         outputPanel.add(new JLabel("SALIDA"), BorderLayout.NORTH);
         outputPanel.add(scrollPane3, BorderLayout.CENTER);
 
-        // Agregar los paneles al panel principal
         mainPanel.add(topPanel, BorderLayout.CENTER);
         mainPanel.add(outputPanel, BorderLayout.SOUTH);
 
-        // Agregar el panel principal al marco
         frame.add(mainPanel);
 
-        // Hacer visible el marco
         frame.setVisible(true);
     }
 
@@ -154,35 +146,30 @@ public class MainView {
     }
 
     private void generateTokenReport() {
-        // Implementar lógica para generar reporte de tokens
+        // reporte de tokens
     }
 
     private void generateErrorReport() {
-        // Implementar lógica para generar reporte de errores
+        // reporte de errores
     }
 
     private void executeTextAreaContent() {
         try {
-            // Clear the previous output
             Salida.salidaConsola.clear();
 
-            // Get the content from textArea1
             String content = textArea1.getText();
 
-            // Pass the content to ScannerTest and ParserTest
             ScannerTest.main(content);
             ParserTest.main(content);
 
-            // Display the content of salidaPartida in textArea2
             StringBuilder output = new StringBuilder();
             for (String line : Salida.salidaConsola) {
                 output.append(line).append("\n");
             }
             textArea2.setText(output.toString());
 
-            // Update the table with tokens, rows, columns, and types
             DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-            tableModel.setRowCount(0); // Clear existing rows
+            tableModel.setRowCount(0);
             for (int i = 0; i < Salida.tokens.size(); i++) {
                 tableModel.addRow(new Object[]{
                         Salida.tokens.get(i),

@@ -855,7 +855,7 @@ public class Scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { addErrorLexico(yyline, yychar, yytext());
+            { addErrorLexico(                                        yyline, yychar, yytext());
             } 
             // fall through
           case 55: break;
@@ -865,12 +865,12 @@ public class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 56: break;
           case 3: 
-            { return new Symbol(Terminal.TK_enteros,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_enteros,                 yyline, yychar, yytext());
             } 
             // fall through
           case 57: break;
           case 4: 
-            { return new Symbol(Terminal.TK_id,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_id,                      yyline, yychar, yytext());
             } 
             // fall through
           case 58: break;
@@ -880,247 +880,247 @@ public class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 59: break;
           case 6: 
-            { return new Symbol(Terminal.RW_C,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_C,                       yyline, yychar, yytext());
             } 
             // fall through
           case 60: break;
           case 7: 
-            { return new Symbol(Terminal.RW_D,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_D,                       yyline, yychar, yytext());
             } 
             // fall through
           case 61: break;
           case 8: 
-            { return new Symbol(Terminal.TK_not,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_not,                     yyline, yychar, yytext());
             } 
             // fall through
           case 62: break;
           case 9: 
-            { return new Symbol(Terminal.TK_mayor,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_mayor,                   yyline, yychar, yytext());
             } 
             // fall through
           case 63: break;
           case 10: 
-            { return new Symbol(Terminal.TK_menor,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_menor,                   yyline, yychar, yytext());
             } 
             // fall through
           case 64: break;
           case 11: 
-            { return new Symbol(Terminal.TK_llaveA,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_llaveA,                  yyline, yychar, yytext());
             } 
             // fall through
           case 65: break;
           case 12: 
-            { return new Symbol(Terminal.TK_llaveC,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_llaveC,                  yyline, yychar, yytext());
             } 
             // fall through
           case 66: break;
           case 13: 
-            { return new Symbol(Terminal.TK_corcheteA,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_corcheteA,               yyline, yychar, yytext());
             } 
             // fall through
           case 67: break;
           case 14: 
-            { return new Symbol(Terminal.TK_corcheteC,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_corcheteC,               yyline, yychar, yytext());
             } 
             // fall through
           case 68: break;
           case 15: 
-            { return new Symbol(Terminal.TK_parA,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_parA,                    yyline, yychar, yytext());
             } 
             // fall through
           case 69: break;
           case 16: 
-            { return new Symbol(Terminal.TK_parC,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_parC,                    yyline, yychar, yytext());
             } 
             // fall through
           case 70: break;
           case 17: 
-            { return new Symbol(Terminal.TK_dosPuntos,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_dosPuntos,               yyline, yychar, yytext());
             } 
             // fall through
           case 71: break;
           case 18: 
-            { return new Symbol(Terminal.TK_coma,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_coma,                    yyline, yychar, yytext());
             } 
             // fall through
           case 72: break;
           case 19: 
-            { return new Symbol(Terminal.RW_if,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_if,                      yyline, yychar, yytext());
             } 
             // fall through
           case 73: break;
           case 20: 
-            { return new Symbol(Terminal.TK_igual,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_igual,                   yyline, yychar, yytext());
             } 
             // fall through
           case 74: break;
           case 21: 
-            { return new Symbol(Terminal.TK_diferente,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_diferente,               yyline, yychar, yytext());
             } 
             // fall through
           case 75: break;
           case 22: 
-            { return new Symbol(Terminal.TK_mayorIgual,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_mayorIgual,              yyline, yychar, yytext());
             } 
             // fall through
           case 76: break;
           case 23: 
-            { return new Symbol(Terminal.TK_menorIgual,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_menorIgual,              yyline, yychar, yytext());
             } 
             // fall through
           case 77: break;
           case 24: 
-            { return new Symbol(Terminal.TK_or,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_or,                      yyline, yychar, yytext());
             } 
             // fall through
           case 78: break;
           case 25: 
-            { return new Symbol(Terminal.TK_and,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_and,                     yyline, yychar, yytext());
             } 
             // fall through
           case 79: break;
           case 26: 
-            { return new Symbol(Terminal.TK_decimales,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.TK_decimales,               yyline, yychar, yytext());
             } 
             // fall through
           case 80: break;
           case 27: 
-            { return new Symbol(Terminal.RW_run,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_run,                     yyline, yychar, yytext());
             } 
             // fall through
           case 81: break;
           case 28: 
-            { return new Symbol(Terminal.RW_seed,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_seed,                    yyline, yychar, yytext());
             } 
             // fall through
           case 82: break;
           case 29: 
-            { return new Symbol(Terminal.RW_true,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_true,                    yyline, yychar, yytext());
             } 
             // fall through
           case 83: break;
           case 30: 
-            { return new Symbol(Terminal.RW_then,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_then,                    yyline, yychar, yytext());
             } 
             // fall through
           case 84: break;
           case 31: 
-            { return new Symbol(Terminal.RW_else,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_else,                    yyline, yychar, yytext());
             } 
             // fall through
           case 85: break;
           case 32: 
-            { return new Symbol(Terminal.RW_main,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_main,                    yyline, yychar, yytext());
             } 
             // fall through
           case 86: break;
           case 33: 
-            { return new Symbol(Terminal.RW_with,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_with,                    yyline, yychar, yytext());
             } 
             // fall through
           case 87: break;
           case 34: 
-            { return new Symbol(Terminal.RW_rules,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_rules,                   yyline, yychar, yytext());
             } 
             // fall through
           case 88: break;
           case 35: 
-            { return new Symbol(Terminal.RW_false,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_false,                   yyline, yychar, yytext());
             } 
             // fall through
           case 89: break;
           case 36: 
-            { return new Symbol(Terminal.RW_match,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_match,                   yyline, yychar, yytext());
             } 
             // fall through
           case 90: break;
           case 37: 
-            { return new Symbol(Terminal.RW_random,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_random,                  yyline, yychar, yytext());
             } 
             // fall through
           case 91: break;
           case 38: 
-            { return new Symbol(Terminal.RW_rounds,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_rounds,                  yyline, yychar, yytext());
             } 
             // fall through
           case 92: break;
           case 39: 
-            { return new Symbol(Terminal.RW_scoring,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_scoring,                 yyline, yychar, yytext());
             } 
             // fall through
           case 93: break;
           case 40: 
-            { return new Symbol(Terminal.RW_initial,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_initial,                 yyline, yychar, yytext());
             } 
             // fall through
           case 94: break;
           case 41: 
-            { return new Symbol(Terminal.RW_players,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_players,                 yyline, yychar, yytext());
             } 
             // fall through
           case 95: break;
           case 42: 
-            { return new Symbol(Terminal.RW_strategy,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_strategy,                yyline, yychar, yytext());
             } 
             // fall through
           case 96: break;
           case 43: 
-            { return new Symbol(Terminal.RW_get_move,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_get_move,                yyline, yychar, yytext());
             } 
             // fall through
           case 97: break;
           case 44: 
-            { return new Symbol(Terminal.RW_last_move,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_last_move,               yyline, yychar, yytext());
             } 
             // fall through
           case 98: break;
           case 45: 
-            { return new Symbol(Terminal.RW_strategies,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_strategies,              yyline, yychar, yytext());
             } 
             // fall through
           case 99: break;
           case 46: 
-            { return new Symbol(Terminal.RW_self_history,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_self_history,            yyline, yychar, yytext());
             } 
             // fall through
           case 100: break;
           case 47: 
-            { return new Symbol(Terminal.RW_round_number,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_round_number,            yyline, yychar, yytext());
             } 
             // fall through
           case 101: break;
           case 48: 
-            { return new Symbol(Terminal.RW_get_moves_count,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_get_moves_count,         yyline, yychar, yytext());
             } 
             // fall through
           case 102: break;
           case 49: 
-            { return new Symbol(Terminal.RW_traidor,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_traidor,                 yyline, yychar, yytext());
             } 
             // fall through
           case 103: break;
           case 50: 
-            { return new Symbol(Terminal.RW_get_last_n_moves,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_get_last_n_moves,        yyline, yychar, yytext());
             } 
             // fall through
           case 104: break;
           case 51: 
-            { return new Symbol(Terminal.RW_defeccionnM,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_defeccionnM,             yyline, yychar, yytext());
             } 
             // fall through
           case 105: break;
           case 52: 
-            { return new Symbol(Terminal.RW_opponent_history,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_opponent_history,        yyline, yychar, yytext());
             } 
             // fall through
           case 106: break;
           case 53: 
-            { return new Symbol(Terminal.RW_cooperacionM,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_cooperacionM,            yyline, yychar, yytext());
             } 
             // fall through
           case 107: break;
           case 54: 
-            { return new Symbol(Terminal.RW_traicionado,          yyline, yychar, yytext());
+            { return new Symbol(Terminal.PR_traicionado,             yyline, yychar, yytext());
             } 
             // fall through
           case 108: break;

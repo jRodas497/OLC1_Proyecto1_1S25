@@ -90,7 +90,6 @@ public class PuntoAcceso extends Instruccion {
 
         for (Regla regla : estrategia.instrucciones.reglas) {
             if (regla.condicion != null && (boolean) regla.condicion.jugar(entorno).valor) {
-                // regla if CONDICION then ACCION
                 return regla.acion.jugar(entorno).valor;
             } else if (regla.condicion == null) {
                 decisonDefault = regla.acion.jugar(entorno).valor;
