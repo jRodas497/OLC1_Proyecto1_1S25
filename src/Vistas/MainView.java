@@ -160,7 +160,7 @@ public class MainView {
             String content = textArea1.getText();
 
             ScannerTest.main(content);
-            ParserTest.main(content);
+                ParserTest.main(content);
 
             StringBuilder output = new StringBuilder();
             for (String line : Salida.salidaConsola) {

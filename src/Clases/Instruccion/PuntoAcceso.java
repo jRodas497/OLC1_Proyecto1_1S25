@@ -5,10 +5,15 @@ import Clases.Abstractas.Instruccion;
 import Clases.Entorno.Entorno;
 import Clases.Objetos.Estrategia;
 import Clases.Objetos.Partida;
+import Clases.Utilidades.Historial;
 import Clases.Utilidades.Salida;
 import Clases.Utilidades.TipoInstruccion;
 
+import java.util.List;
+
 public class PuntoAcceso extends Instruccion {
+    private Historial historial;
+
     Object partida;
     int rondas;
     boolean decision1;
@@ -30,6 +35,7 @@ public class PuntoAcceso extends Instruccion {
     public PuntoAcceso(Object partida) {
         super(TipoInstruccion.MAIN);
         this.partida = partida;
+        this.historial = new Historial(true);
     }
 
     public void jugar(Entorno entorno) {
@@ -62,6 +68,7 @@ public class PuntoAcceso extends Instruccion {
 
             for (int i = 0; i < rondas; i++) {
                 entorno.setRondaActual(i);
+
                 if (i == 0) {
                     decision1 = decisionInicial(entorno, estrategia1);
                     decision2 = decisionInicial(entorno, estrategia2);
@@ -99,7 +106,7 @@ public class PuntoAcceso extends Instruccion {
     }
 
     public void formato(int i, String estrategia1, String estrategia2) {
-        int ronda = i + 1;
+        int ronda = i ;
         if (decision1 && decision2) { // Cooperacon mutua
             Salida.salidaConsola.add("\t" + ronda + "\t|" + "\tC\t" + "|\t" + "C\t|\t(" + cooperacion + "-" + cooperacion + ")");
             puntuacion1 += cooperacion;
@@ -125,6 +132,7 @@ public class PuntoAcceso extends Instruccion {
             cooperaciones1++;
             defecciones2++;
         }
+        historial.agregarResultado(decision1, decision2);
     }
 
     private String getPercentage(int count, int total) {

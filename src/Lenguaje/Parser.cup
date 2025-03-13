@@ -135,9 +135,9 @@ EXPRESION ::=
             DECISION     :d {: RESULT = d; :}|
             FUNCIONES    |
             LISTA       |
-            PR_random   |
-            PR_opponent_history |
-            PR_self_history |
+            PR_random   :r {:RESULT = new RandomDecimal(); :}|
+            PR_self_history :r {: RESULT = new Historial(true); :} |
+            PR_opponent_history :r {: RESULT = new Historial(false); :} |
             PR_round_number :r {: RESULT = new RondaActual(); :} |
             PR_true      :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
             PR_false     :p {: RESULT = new Primitivo(p, Tipo.BOOLEAN); :} |
