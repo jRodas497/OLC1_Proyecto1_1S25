@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="OLC1_Proyecto1_1S25:jar">
-    <output-path>$PROJECT_DIR$</output-path>
+    <output-path>$PROJECT_DIR$/Entregables</output-path>
     <root id="archive" name="OLC1_Proyecto1_1S25.jar">
       <element id="module-output" name="OLC1_Proyecto1_1S25" />
       <element id="extracted-dir" path="$USER_HOME$/Documents/Librerias Java/jflex-full-1.7.0.jar" path-in-jar="/" />
