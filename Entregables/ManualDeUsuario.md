@@ -31,19 +31,19 @@ Posee 3 opciones principales:
 - Archivo: Permite cargar un archivo de estrategias. Además de guardar el archivo en el editor y crear uno nuevo limpiando la entrada
 para escribir una nueva partida.
 
-![Boton Archivo](./Imagenes/Archivo.jpg)
+![Boton Archivo](/Entregables/Imagenes/Archivo.jpg)
 
 - Reportes: Permite generar un reporte de las partidas jugadas. Además de mostrar un reporte de los tokens generados por el analizador léxico y los errores.
 
-![Boton Reportes](./Imagenes/Reportes.jpg)
+![Boton Reportes](/Entregables/Imagenes/Reportes.jpg)
 
 - Ejecutar: Permite ejecutar la partida con las estrategias cargadas.
 
-![Boton Ejecutar](./Imagenes/Ejecutar.jpg)
+![Boton Ejecutar](/Entregables/Imagenes/Ejecutar.jpg)
 
 - En el primer texto se muestra el código de las estrategias que se cargan en el sistema. En el segundo texto se muestra el resultado de la partida.
 En el segundo texto se imprime el reporte de tokens encontrados por el analizador léxico y los errores encontrados en el código de las estrategias.
 En el ultimo y tercer texto se muestra el resultado de la partida, en donde se muestra el resultado de cada ronda y el resultado final de la partida.
 
-![Vista Main](./Imagenes/Vista%20Main.jpg)
+![Vista Main](/Entregables/Imagenes/Vista%20Main.jpg)
 
